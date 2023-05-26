@@ -1,0 +1,904 @@
+<!DOCTYPE html>
+<html style="font-size: 16px;" lang="en"><head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no">
+<link href="https://api.mapbox.com/mapbox-gl-js/v2.14.1/mapbox-gl.css" rel="stylesheet">
+<script src="https://api.mapbox.com/mapbox-gl-js/v2.14.1/mapbox-gl.js"></script>
+    <title>Home</title>
+    <link rel="stylesheet" href="nicepage.css" media="screen">
+<link rel="stylesheet" href="Home.css" media="screen">
+    <script class="u-script" type="text/javascript" src="jquery.js" defer=""></script>
+    <script class="u-script" type="text/javascript" src="nicepage.js" defer=""></script>
+    <meta name="generator" content="Nicepage 5.9.10, nicepage.com">
+    <link id="u-theme-google-font" rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i|Open+Sans:300,300i,400,400i,500,500i,600,600i,700,700i,800,800i">
+    <link id="u-page-google-font" rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i">
+    
+    
+    
+    
+    <meta name="theme-color" content="#478ac9">
+    <meta property="og:title" content="Home">
+    <meta property="og:type" content="website">
+  <meta data-intl-tel-input-cdn-path="intlTelInput/"></head>
+    
+    <style>
+    body {
+        overflow: hidden;
+    }
+
+    body * {
+        -webkit-touch-callout: none;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+    }
+
+    .map1 {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        width: 100%;
+    }
+
+
+    .map2 {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        width: 100%;
+    }
+        
+    #map2-container {
+            position: absolute;
+            border-radius: 10px;
+            right:5%;
+            width: 41vw;
+            height: 600px;
+            background-color: #f2f2f2; /* 设置背景颜色 */
+            overflow: hidden; /* 隐藏溢出内容 */
+    } 
+ 
+    #map2 { 
+            position: absolute; 
+            top: 0; 
+            bottom: 0; 
+            width: 100%; 
+    }
+
+</style>
+
+<style>
+    
+
+            
+    .element img {
+        float: right;
+        margin-top: 50px;
+    }
+
+    .onecircle20171 {
+      width: 500px;
+      height: 500px;
+      color:#b70000;
+      background-color: transparent; /* 背景透明 */
+      border-radius: 50%; /* 注意这里的倒角半径要加上外边框宽度 */
+      border: 100px solid rgba(50, 157, 190, 0.1); 
+      position: absolute;
+      top: -20px;
+      left: -25px;
+      /*请注意，这些坐标是相对于页面的坐标，具体位置取决于圆所在的上下文。*/
+      cursor: pointer;
+    }
+    .tooltip1,
+    .tooltip2 {
+      position: absolute;
+      padding: 10px;
+      background-color: #f1f1f1;
+      color:#6a6a6a;
+      border-radius: 50px;
+      font-size: 14px;
+      font-family: optima;
+      border: 1px solid black;
+      z-index: 1;
+    }
+
+    .circle1 {
+     width: 300px;
+     height: 300px;
+     background-color: transparent; /* 背景透明 */
+     border: 5px dashed #6ca5b8;
+     border-radius: 50%;
+     position: absolute;
+     top: 80px;
+     left: 75px;
+     cursor: pointer;
+     display: block;
+    }
+    .circle2 {
+     width: 500px;
+     height: 500px;
+     background-color: transparent; /* 背景透明 */
+     border: 5px dashed #ADD8E6;
+     border-radius: 50%;
+     position: absolute;
+     top:-20px;
+     left:-25px;
+     cursor: pointer;
+     display: block;
+    }
+
+    
+    
+  
+  </style>
+
+
+    
+<script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-compare/v0.4.0/mapbox-gl-compare.js"></script>
+<link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-compare/v0.4.0/mapbox-gl-compare.css" type="text/css">
+    
+    
+  <body class="u-body u-overlap u-overlap-contrast u-xl-mode" data-lang="en"><header class="u-clearfix u-header u-header" id="sec-330d"><div class="u-clearfix u-sheet u-sheet-1">
+        <nav class="u-menu u-menu-hamburger u-menu-open-right u-offcanvas u-menu-1" data-responsive-from="XL">
+          <div class="menu-collapse u-custom-font u-font-montserrat" style="font-size: 1rem; letter-spacing: 0px; font-weight: 500;">
+            <a class="u-button-style u-custom-active-border-color u-custom-active-color u-custom-border u-custom-border-color u-custom-borders u-custom-hover-border-color u-custom-hover-color u-custom-left-right-menu-spacing u-custom-padding-bottom u-custom-text-active-color u-custom-text-color u-custom-text-hover-color u-custom-top-bottom-menu-spacing u-nav-link u-text-active-palette-1-base u-text-hover-palette-2-base u-text-white" href="#" style="padding: 9px 26px; font-size: calc(1em + 18px);">
+              <svg class="u-svg-link" viewBox="0 0 24 24"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#menu-hamburger"></use></svg>
+              <svg class="u-svg-content" version="1.1" id="menu-hamburger" viewBox="0 0 16 16" x="0px" y="0px" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg"><g><rect y="1" width="16" height="2"></rect><rect y="7" width="16" height="2"></rect><rect y="13" width="16" height="2"></rect>
+</g></svg>
+            </a>
+          </div>
+          <div class="u-custom-menu u-nav-container">
+            <ul class="u-custom-font u-font-montserrat u-nav u-spacing-2 u-unstyled u-nav-1"><li class="u-nav-item"><a class="u-active-grey-5 u-border-active-grey-90 u-border-hover-grey-50 u-button-style u-hover-grey-10 u-nav-link u-text-active-grey-90 u-text-grey-90 u-text-hover-grey-90" href="Home.html#sec-ac24" target="_blank" style="padding: 10px 20px;">URBANIZATION</a>
+</li><li class="u-nav-item"><a class="u-active-grey-5 u-border-active-grey-90 u-border-hover-grey-50 u-button-style u-hover-grey-10 u-nav-link u-text-active-grey-90 u-text-grey-90 u-text-hover-grey-90" href="Home.html#sec-f972" target="_blank" style="padding: 10px 20px;">RAIL TRANSIT</a>
+</li><li class="u-nav-item"><a class="u-active-grey-5 u-border-active-grey-90 u-border-hover-grey-50 u-button-style u-hover-grey-10 u-nav-link u-text-active-grey-90 u-text-grey-90 u-text-hover-grey-90" href="Home.html#sec-41ed" style="padding: 10px 20px;">ABOUT US</a>
+</li></ul>
+          </div>
+          <div class="u-custom-menu u-nav-container-collapse">
+            <div class="u-black u-container-style u-inner-container-layout u-opacity u-opacity-70 u-sidenav">
+              <div class="u-inner-container-layout u-sidenav-overflow">
+                <div class="u-menu-close u-menu-close-1"></div>
+                <ul class="u-align-center u-custom-font u-font-montserrat u-nav u-popupmenu-items u-spacing-20 u-unstyled u-nav-2"><li class="u-nav-item"><a class="u-button-style u-nav-link" href="index.html">HOME</a>
+</li><li class="u-nav-item"><a class="u-button-style u-nav-link" href="Home.html#sec-ac24" target="_blank">URBANIZATION</a>
+</li><li class="u-nav-item"><a class="u-button-style u-nav-link" href="Home.html#sec-f972" target="_blank">RAIL TRANSIT</a>
+</li><li class="u-nav-item"><a class="u-button-style u-nav-link" href="Home.html#sec-41ed">ABOUT US</a>
+</li></ul>
+              </div>
+            </div>
+            <div class="u-menu-overlay"></div>
+          </div>
+        </nav>
+      </div></header>
+    <section class="u-clearfix u-shading u-video u-video-cover u-section-1" id="carousel_f4af">
+      <div class="u-background-video u-expanded" style="filter: brightness(0.9);">
+        <div class="embed-responsive embed-responsive-1">
+          <iframe style="position: absolute;top: 0;left: 0;width: 100%;height: 100%;" class="embed-responsive-item" src="https://www.youtube.com/embed/gYO1uk7vIcc?playlist=gYO1uk7vIcc&amp;loop=1&amp;mute=1&amp;showinfo=0&amp;controls=0&amp;start=0&amp;autoplay=1" data-autoplay="1" frameborder="0" allowfullscreen=""></iframe>
+        </div>
+      </div>
+      <div class="u-clearfix u-expanded-width u-layout-wrap u-layout-wrap-1">
+        <div class="u-layout">
+          <div class="u-layout-row">
+            <div class="u-container-align-center-xl u-container-style u-layout-cell u-right-cell u-shape-rectangle u-size-60 u-layout-cell-1">
+              <div class="u-container-layout u-valign-bottom-xl u-container-layout-1">
+                <h1 class="u-align-center u-custom-font u-font-montserrat u-text u-text-default u-text-white u-text-1" data-animation-name="customAnimationIn" data-animation-duration="1000" data-animation-direction="X">Hello, GBA!</h1>
+                <p class="u-align-center u-custom-font u-font-montserrat u-text u-text-white u-text-2" data-animation-name="customAnimationIn" data-animation-duration="1000" data-animation-direction=""> Greater Bay Area is one of the most economically dynamic regions of China and the World, home to 86.7 million people.</p>
+                <a href="https://www.bayarea.gov.hk/en/about/overview.html" class="u-active-grey-80 u-align-center u-border-active-grey-80 u-border-hover-grey-80 u-border-none u-btn u-btn-round u-button-style u-hover-grey-80 u-radius-50 u-text-active-white u-text-hover-white u-white u-btn-1" data-animation-name="customAnimationIn" data-animation-duration="1000" target="_blank">read more</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="u-align-center u-clearfix u-section-2" id="sec-b3a2">
+      <style data-mode="XXL">@media (max-width: 0px) {
+  .u-block-99db-2 {
+    min-height: 613px;
+  }
+  .u-section-2 .u-slider-1 {
+    width: 758px;
+    min-height: 478px;
+    height: auto;
+    margin-top: 60px;
+    margin-bottom: 60px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .u-section-2 .u-carousel-indicators-1 {
+    position: absolute;
+    bottom: 10px;
+    width: auto;
+    height: auto;
+  }
+  
+  .u-block-99db-26 {
+    padding-top: 30px;
+    padding-bottom: 30px;
+    padding-left: 60px;
+    padding-right: 60px;
+  }
+  .u-block-99db-32 {
+    margin-top: 0;
+    margin-bottom: 0;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .u-block-99db-33 {
+    width: 409px;
+    margin-top: 20px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 0;
+  }
+  .u-block-99db-34 {
+    border-style: none;
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: 0.875rem;
+    letter-spacing: 1px;
+    background-image: none;
+    margin-top: 30px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 0;
+  }
+  
+  .u-section-2 .u-container-layout-1 {
+    padding-top: 30px;
+    padding-bottom: 30px;
+    padding-left: 60px;
+    padding-right: 60px;
+  }
+  .u-section-2 .u-text-1 {
+    margin-top: 0;
+    margin-bottom: 0;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .u-block-99db-38 {
+    width: 409px;
+    margin-top: 20px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 0;
+  }
+  .u-block-99db-39 {
+    border-style: none;
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: 0.875rem;
+    letter-spacing: 1px;
+    background-image: none;
+    margin-top: 30px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 0;
+  }
+  .u-section-2 .u-carousel-control-1 {
+    width: 38px;
+    height: 38px;
+    background-image: none;
+    left: -58px;
+    position: absolute;
+    right: auto;
+  }
+  .u-section-2 .u-carousel-control-2 {
+    width: 38px;
+    height: 38px;
+    background-image: none;
+    left: auto;
+    position: absolute;
+    right: -58px;
+  }
+}</style>
+      <div id="carousel-bd35" data-interval="5000" data-u-ride="false" class="u-carousel u-expanded-width u-slider u-slider-1">
+        <ol class="u-absolute-hcenter u-carousel-indicators u-carousel-indicators-1">
+          <li data-u-target="#carousel-bd35" class="u-active u-active-grey-50 u-grey-10 u-shape-rectangle" data-u-slide-to="0" style="width: 30px; height: 5px; background-image: none;"></li>
+          <li data-u-target="#carousel-bd35" class="u-active-grey-50 u-grey-10 u-shape-rectangle" data-u-slide-to="1" style="width: 30px; height: 5px; background-image: none;"></li>
+          <li data-u-target="#carousel-bd35" class="u-active-grey-50 u-grey-10 u-shape-rectangle" data-u-slide-to="2" style="width: 30px; height: 5px; background-image: none;"></li>
+          <li data-u-target="#carousel-bd35" class="u-active-grey-50 u-grey-10 u-shape-rectangle" data-u-slide-to="3" style="width: 30px; height: 5px; background-image: none;"></li>
+        </ol>
+        <div class="u-carousel-inner" role="listbox">
+          <div class="u-active u-align-center u-carousel-item u-container-style u-image u-slide u-image-1" data-image-width="2878" data-image-height="1606">
+            <div class="u-container-layout u-valign-top u-container-layout-1">
+              <h3 class="u-custom-font u-font-montserrat u-text u-text-body-alt-color u-text-default u-text-1"> 2000</h3>
+            </div>
+          </div>
+          <div class="u-align-center u-carousel-item u-container-style u-image u-slide u-image-2" data-image-width="2878" data-image-height="1606">
+            <div class="u-container-layout u-container-layout-2">
+              <h3 class="u-custom-font u-font-montserrat u-text u-text-body-alt-color u-text-default u-text-2"> 2009</h3>
+            </div>
+          </div>
+          <div class="u-align-center u-carousel-item u-container-style u-image u-slide u-image-3" data-image-width="2878" data-image-height="1606">
+            <div class="u-container-layout u-container-layout-3">
+              <h3 class="u-custom-font u-font-montserrat u-text u-text-body-alt-color u-text-default u-text-3"> 2010</h3>
+            </div>
+          </div>
+          <div class="u-align-center u-carousel-item u-container-style u-image u-slide u-image-4" data-image-width="2878" data-image-height="1606">
+            <div class="u-container-layout u-valign-top u-container-layout-4">
+              <h3 class="u-custom-font u-font-montserrat u-text u-text-body-alt-color u-text-default u-text-4"> 2019</h3>
+            </div>
+          </div>
+        </div>
+        <a class="u-absolute-vcenter u-carousel-control u-carousel-control-prev u-hidden-sm u-hidden-xs u-icon-rectangle u-spacing-9 u-text-hover-grey-15 u-carousel-control-1" href="#carousel-bd35" role="button" data-u-slide="prev">
+          <span aria-hidden="true">
+            <svg viewBox="0 0 477.175 477.175"><path d="M145.188,238.575l215.5-215.5c5.3-5.3,5.3-13.8,0-19.1s-13.8-5.3-19.1,0l-225.1,225.1c-5.3,5.3-5.3,13.8,0,19.1l225.1,225
+		c2.6,2.6,6.1,4,9.5,4s6.9-1.3,9.5-4c5.3-5.3,5.3-13.8,0-19.1L145.188,238.575z"></path></svg>
+          </span>
+          <span class="sr-only">
+            <svg viewBox="0 0 477.175 477.175"><path d="M145.188,238.575l215.5-215.5c5.3-5.3,5.3-13.8,0-19.1s-13.8-5.3-19.1,0l-225.1,225.1c-5.3,5.3-5.3,13.8,0,19.1l225.1,225
+		c2.6,2.6,6.1,4,9.5,4s6.9-1.3,9.5-4c5.3-5.3,5.3-13.8,0-19.1L145.188,238.575z"></path></svg>
+          </span>
+        </a>
+        <a class="u-absolute-vcenter u-carousel-control u-carousel-control-next u-hidden-sm u-hidden-xs u-icon-rectangle u-spacing-9 u-text-hover-grey-15 u-carousel-control-2" href="#carousel-bd35" role="button" data-u-slide="next">
+          <span aria-hidden="true">
+            <svg viewBox="0 0 477.175 477.175"><path d="M360.731,229.075l-225.1-225.1c-5.3-5.3-13.8-5.3-19.1,0s-5.3,13.8,0,19.1l215.5,215.5l-215.5,215.5
+		c-5.3,5.3-5.3,13.8,0,19.1c2.6,2.6,6.1,4,9.5,4c3.4,0,6.9-1.3,9.5-4l225.1-225.1C365.931,242.875,365.931,234.275,360.731,229.075z"></path></svg>
+          </span>
+          <span class="sr-only">
+            <svg viewBox="0 0 477.175 477.175"><path d="M360.731,229.075l-225.1-225.1c-5.3-5.3-13.8-5.3-19.1,0s-5.3,13.8,0,19.1l215.5,215.5l-215.5,215.5
+		c-5.3,5.3-5.3,13.8,0,19.1c2.6,2.6,6.1,4,9.5,4c3.4,0,6.9-1.3,9.5-4l225.1-225.1C365.931,242.875,365.931,234.275,360.731,229.075z"></path></svg>
+          </span>
+        </a>
+      </div>
+      <h2 class="u-align-center u-custom-font u-font-montserrat u-text u-text-5" data-animation-name="customAnimationIn" data-animation-duration="1500" data-animation-delay="750">Story of the Lie De Village<br>
+      </h2>
+      <p class="u-custom-font u-font-montserrat u-text u-text-6" data-animation-name="customAnimationIn" data-animation-duration="1000">Lie De ​is a typical southern Chinese village, which has been settled for over 900 years by its ancestor, Li Quan, during the Song Dynasty. The village was replaced by the CBD of Zhujiang New Town in the urban regeneration of Guangzhou around 2010.</p>
+    </section>
+    <section class="u-clearfix u-grey-5 u-section-3" id="carousel_b21a">
+      <div class="u-clearfix u-sheet u-valign-middle u-sheet-1">
+        <div class="u-clearfix u-layout-wrap u-layout-wrap-1">
+          <div class="u-layout">
+            <div class="u-layout-row">
+              <div class="u-align-left u-container-style u-layout-cell u-left-cell u-size-25 u-layout-cell-1" data-animation-name="customAnimationIn" data-animation-duration="1500">
+                <div class="u-container-layout u-container-layout-1">
+                  <h2 class="u-align-center u-custom-font u-font-montserrat u-text u-text-1" data-animation-name="customAnimationIn" data-animation-duration="1500" data-animation-delay="750">Greater Bay Area<br>
+                  </h2>
+                  <p class="u-align-center u-custom-font u-font-montserrat u-text u-text-2">The Guangdong-Hong Kong-Macao Greater Bay Area is a cluster of cities surrounding the Pearl River Delta and the Lingding Ocean in the People's Republic of China, including nine neighbouring cities in Guangdong Province: the two first-tier cities and sub-provincial cities of Guangzhou and Shenzhen <span style="color: #4390aa">(Core cities)</span> and the seven prefecture-level cities of Zhuhai, Foshan, Dongguan, Zhongshan, Jiangmen, Huizhou and Zhaoqing <span style="color: #8ecade">(Key node cities)</span>, as well as the two Special Administrative Regions of Hong Kong and Macau <span style="color: #4390aa">(Core cities)</span>, with a population of 70 million and 160,000 GDP per capita in 2018.<br>
+                  </p>
+                </div>
+              </div>
+              <div class="u-container-style u-layout-cell u-right-cell u-shape-rectangle u-size-35 u-layout-cell-2" data-animation-name="customAnimationIn" data-animation-duration="1750" data-animation-delay="500">
+                <div class="u-container-layout u-valign-middle-md u-container-layout-2">
+                    <div id="map2-container">
+                        <div id="map2" class="map2"></div>
+                      </div>
+                    </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="u-clearfix u-grey-5 u-section-4" id="carousel_b987">
+      <div class="u-clearfix u-sheet u-valign-middle u-sheet-1">
+        <div class="u-clearfix u-expanded-width u-gutter-10 u-layout-wrap u-layout-wrap-1">
+          <div class="u-layout" style="">
+            <div class="u-layout-row" style="">
+              <div class="u-align-center">
+                  <iframe src='https://flo.uri.sh/visualisation/13853785/embed' title='Interactive or visual content' class='flourish-embed-iframe' frameborder='0' scrolling='no' style='width:40vw;height:600px;' sandbox='allow-same-origin allow-forms allow-scripts allow-downloads allow-popups allow-popups-to-escape-sandbox allow-top-navigation-by-user-activation'></iframe>
+                  <iframe src='https://flo.uri.sh/visualisation/13854078/embed' title='Interactive or visual content' class='flourish-embed-iframe' frameborder='0' scrolling='no' style='width:40vw;height:600px;' sandbox='allow-same-origin allow-forms allow-scripts allow-downloads allow-popups allow-popups-to-escape-sandbox allow-top-navigation-by-user-activation'></iframe>  
+                  
+                </div>
+                          
+                
+              </div>
+              
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="u-clearfix u-grey-5 u-section-5" id="carousel_8f66">
+      <div class="u-clearfix u-sheet u-sheet-1">
+        <div class="u-clearfix u-expanded-width u-gutter-10 u-layout-wrap u-layout-wrap-1">
+          <div class="u-layout" style="">
+            <div class="u-layout-row" style="">
+              <div class="u-container-style u-layout-cell u-left-cell u-size-60 u-size-xs-60 u-layout-cell-1" src="">
+                <div class="u-container-layout u-container-layout-1">
+                  <h2 class="u-align-center u-custom-font u-font-montserrat u-text u-text-default u-text-1" data-animation-name="customAnimationIn" data-animation-duration="1000">Population &amp; GDP Growth</h2>
+                  <p class="u-align-center u-custom-font u-font-montserrat u-text u-text-2" data-animation-name="customAnimationIn" data-animation-duration="1000"> Growing populations and GDP per capita in GBA can materialize urban regeneration. The impact of urban regeneration on population and GDP is interrelated-population growth and increased career oppotunities drive economic growth in GBA, which in turn attracts more influx of people and investment. This virtuous circle can promote the development and enhance the competitiveness and influence of the city group.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="u-clearfix u-grey-5 u-section-6" id="sec-d1fe">
+      <div class="u-clearfix u-sheet u-sheet-1">
+        <div class="u-clearfix u-expanded-width u-layout-wrap u-layout-wrap-1">
+          <div class="u-layout">
+            <div class="u-layout-row">
+              <div class="u-container-style u-layout-cell u-left-cell u-size-39 u-layout-cell-1">
+                <div class="u-container-layout u-container-layout-1">
+                  <div class="u-expanded u-grey-10 u-map">
+                    <div class="embed-responsive">
+                      <div id="comparison-container">
+                        <div id="before" class="map1"></div>
+                        <div id="after" class="map1"></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="u-align-left-lg u-align-left-md u-align-left-sm u-align-left-xl u-container-style u-layout-cell u-right-cell u-size-21 u-layout-cell-2">
+                <div class="u-container-layout u-container-layout-2">
+                  <h2 class="u-align-left-xs u-custom-font u-font-montserrat u-text u-text-1" data-animation-name="customAnimationIn" data-animation-duration="1000"> Day and Night of GBA</h2>
+                  <p class="u-align-center-xs u-custom-font u-font-montserrat u-text u-text-2" data-animation-name="customAnimationIn" data-animation-duration="1000"> Different from the daytime, the Greater Bay Area shows off its brilliant lights at night. The annual electricity consumption of 620 billion kilowatt hours makes the Greater Bay Area one of the brightest lit regions on the planet.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="u-align-left u-clearfix u-image u-shading u-section-7" src="" data-image-width="1952" data-image-height="1092" id="sec-ac24">
+      <div class="u-clearfix u-sheet u-sheet-1">
+        <h1 class="u-custom-font u-font-montserrat u-text u-text-default u-title u-text-1" data-animation-name="customAnimationIn" data-animation-duration="1000" data-animation-direction="">1975-2030<br>GBA&nbsp;Urbanization 
+        </h1>
+        <p class="u-custom-font u-font-montserrat u-large-text u-text u-text-variant u-text-2" data-animation-name="customAnimationIn" data-animation-duration="1000"> In the 40 years since the Reform and Opening up, more than 70 million people have moved to the GBA, injecting dynamism into the region's economy and bringing about one of the largest and fastest urbanisation processes in human history.</p>
+        <a href="bayareasatellite.html" class="u-btn u-button-style u-custom-font u-font-montserrat u-hover-feature u-white u-btn-1" target="_blank" data-animation-name="customAnimationIn" data-animation-duration="1000">Try&nbsp;Interactive map</a>
+      </div>
+      
+    </section>
+    <section class="u-clearfix u-grey-5 u-section-8" id="sec-0caf">
+      <div class="u-clearfix u-sheet u-sheet-1">
+        <div class="u-clearfix u-layout-wrap u-layout-wrap-1">
+          <div class="u-layout">
+            <div class="u-layout-row">
+              <div class="u-container-style u-layout-cell u-left-cell u-size-35 u-layout-cell-1" data-animation-name="customAnimationIn" data-animation-duration="1500">
+                <div class="u-container-layout u-container-layout-1">
+                  <div class="element" style="font-size: 80px;">
+                    <img src="images/bluecircle.png" height="500">
+
+                    <div class="onecircle20171"></div>
+                    <div class="tooltip1">One-hour Living Circle in 2017</div> 
+                    <div class="tooltip2">One-hour Living Circle in 2020</div>
+                    <div class="circle1"></div>
+                    <div class="circle2"></div>
+                    </div>   
+                </div>
+              </div>
+              <div class="u-align-left u-container-style u-layout-cell u-right-cell u-shape-rectangle u-size-25 u-layout-cell-2" data-animation-name="customAnimationIn" data-animation-duration="1750" data-animation-delay="500">
+                <div class="u-container-layout u-container-layout-2">
+                  <h2 class="u-align-center u-custom-font u-font-montserrat u-text u-text-1" data-animation-name="customAnimationIn" data-animation-duration="1500" data-animation-delay="750">1-Hour Living Circle</h2>
+                  <p class="u-align-center u-custom-font u-font-montserrat u-text u-text-2"> With Guangzhou as the centre, the service and technology industries have already started to spill over to Dongguan and Foshan, driven by policy promotion and rising office costs in Guangzhou and Shenzhen and urban integration. Improved transportation will help Jiangmen and Zhaoqing become important locations for logistics companies to locate in the Greater Bay Area and receive spillover demand. Huizhou, with its coastline resources, can attract tourist crowds from other cities in the Bay Area.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="u-clearfix u-grey-5 u-section-9" id="sec-2b23">
+      <div class="u-clearfix u-sheet u-sheet-1">
+        <div class="u-clearfix u-expanded-width u-gutter-10 u-layout-wrap u-layout-wrap-1">
+          <div class="u-layout" style="">
+            <div class="u-layout-row" style="">
+              <div class="u-align-center">
+                <iframe src='https://flo.uri.sh/visualisation/13855647/embed' title='Interactive or visual content' class='flourish-embed-iframe' frameborder='0' scrolling='no' style='width:80vw;height:600px;' sandbox='allow-same-origin allow-forms allow-scripts allow-downloads allow-popups allow-popups-to-escape-sandbox allow-top-navigation-by-user-activation'></iframe>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="u-clearfix u-grey-5 u-section-10" id="sec-147a">
+      <div class="u-clearfix u-sheet u-sheet-1">
+        <div class="u-clearfix u-expanded-width u-gutter-10 u-layout-wrap u-layout-wrap-1">
+          <div class="u-layout" style="">
+            <div class="u-layout-row" style="">
+              <div class="u-container-style u-layout-cell u-left-cell u-size-60 u-size-xs-60 u-layout-cell-1" src="" data-animation-name="customAnimationIn" data-animation-duration="1000">
+                <div class="u-container-layout u-container-layout-1">
+                  <h2 class="u-align-center u-custom-font u-font-montserrat u-text u-text-default u-text-1" data-animation-name="customAnimationIn" data-animation-duration="1000">Greater Bay Area on Track</h2>
+                  <p class="u-align-center u-custom-font u-font-montserrat u-text u-text-2" data-animation-name="customAnimationIn" data-animation-duration="1000"> Rail transit provides a convenient and reliable mode of transportation and accessibility to job opportunities, educational institutions, and essential services. New transport corridors can act as catalysts for revitalising communities and attracting private investment, as well as facilitating the co-location of GBA cities and their gradual amalgamation into megacities.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="u-align-center u-clearfix u-image u-shading u-section-11" id="carousel_ea7e" data-image-width="4208" data-image-height="3120">
+      <div class="u-clearfix u-sheet u-sheet-1">
+        <h2 class="u-align-center u-custom-font u-font-montserrat u-text u-text-body-alt-color u-text-1" data-animation-name="customAnimationIn" data-animation-duration="1500" data-animation-delay="750">CITY METRO</h2>
+        <div class="u-expanded-width u-list u-list-1">
+          <div class="u-repeater u-repeater-1">
+            <div class="u-align-left u-container-style u-list-item u-radius-8 u-repeater-item u-shape-round u-white u-list-item-1" data-animation-name="customAnimationIn" data-animation-duration="1500" data-animation-delay="1250">
+              <div class="u-container-layout u-similar-container u-valign-top u-container-layout-1">
+                <img class="u-align-center u-image u-image-contain u-image-default u-image-1" alt="" data-image-width="2560" data-image-height="721" src="images/2560px-Guangzhou_Metro_logo.svg.png" data-animation-name="customAnimationIn" data-animation-duration="1500" data-animation-delay="1750">
+                <h4 class="u-align-center u-custom-font u-font-montserrat u-text u-text-default u-text-2">GUANGZHOU METRO</h4>
+                <p class="u-align-center u-custom-font u-font-montserrat u-text u-text-3">Established in 1992, The Guangzhou Metro has provided irreplaceable transportation services to the citizens in Guangzhou with a total rail of 857km.</p>
+                <a href="https://cs.gzmtr.com/ckfwEnglish/" class="u-active-none u-align-center u-border-1 u-border-active-palette-4-dark-1 u-border-black u-border-hover-palette-4-dark-1 u-btn u-button-style u-hover-none u-none u-text-body-color u-btn-1" target="_blank">more</a>
+              </div>
+            </div>
+            <div class="u-align-left u-container-align-center u-container-style u-list-item u-radius-8 u-repeater-item u-shape-round u-video-cover u-white u-list-item-2" data-animation-name="customAnimationIn" data-animation-duration="1500" data-animation-delay="1250">
+              <div class="u-container-layout u-similar-container u-valign-top u-container-layout-2">
+                <img class="u-align-center u-image u-image-contain u-image-default u-image-2" alt="" data-image-width="625" data-image-height="159" src="images/Shenzhen_Metro_Logo_2019.png" data-animation-name="customAnimationIn" data-animation-duration="1500" data-animation-delay="1750">
+                <h4 class="u-align-center u-custom-font u-font-montserrat u-text u-text-default u-text-4">SHENZHEN METRO</h4>
+                <p class="u-align-center u-custom-font u-font-montserrat u-text u-text-5">The Shenzhen Metro was established in 1998. While carring on the operation of 516.7 kilometers of rail, it is also keen on undertaking social responsibilities.</p>
+                <a href="https://www.szmc.net/szmc_en" class="u-active-none u-align-center u-border-1 u-border-active-palette-4-dark-1 u-border-black u-border-hover-palette-4-dark-1 u-btn u-button-style u-hover-none u-none u-text-body-color u-btn-2" target="_blank">more</a>
+              </div>
+            </div>
+            <div class="u-align-left u-container-style u-list-item u-radius-8 u-repeater-item u-shape-round u-video-cover u-white u-list-item-3" data-animation-name="customAnimationIn" data-animation-duration="1500" data-animation-delay="1250">
+              <div class="u-container-layout u-similar-container u-valign-top u-container-layout-3">
+                <img class="u-align-center u-image u-image-contain u-image-default u-image-3" alt="" data-image-width="690" data-image-height="148" src="images/MTR_Logo_with_text.png" data-animation-name="customAnimationIn" data-animation-duration="1500" data-animation-delay="1750">
+                <h4 class="u-align-center u-custom-font u-font-montserrat u-text u-text-default u-text-6">HONG KONG MTR</h4>
+                <p class="u-align-center u-custom-font u-font-montserrat u-text u-text-7">The MTR is the "backbone" of Hong Kong's transportation. The oldest East Rail Line was available in 1910, which has been in operation for 113 years.</p>
+                <a href="https://www.mtr.com.hk/en/customer/main/index.html" class="u-active-none u-align-center u-border-1 u-border-active-palette-4-dark-1 u-border-black u-border-hover-palette-4-dark-1 u-btn u-button-style u-hover-none u-none u-text-body-color u-btn-3" target="_blank">more</a>
+              </div>
+            </div>
+            <div class="u-align-left u-container-align-center u-container-style u-list-item u-radius-8 u-repeater-item u-shape-round u-video-cover u-white u-list-item-4" data-animation-name="customAnimationIn" data-animation-duration="1500" data-animation-delay="1250">
+              <div class="u-container-layout u-similar-container u-valign-top u-container-layout-4">
+                <img class="u-align-center u-image u-image-contain u-image-default u-image-4" alt="" data-image-width="1920" data-image-height="1193" src="images/1920px-FMetro.svg.png" data-animation-name="customAnimationIn" data-animation-duration="1500" data-animation-delay="1750">
+                <h4 class="u-align-center u-custom-font u-font-montserrat u-text u-text-default u-text-8">FOSHAN METRO</h4>
+                <p class="u-align-center u-custom-font u-font-montserrat u-text u-text-9"> The Foshan Metro is currently operated by Guangzhou Metro and has a total mileage of 124.49 kilometres.</p>
+                <a href="https://www.fmetro.net" class="u-active-none u-align-center u-border-1 u-border-active-palette-4-dark-1 u-border-black u-border-hover-palette-4-dark-1 u-btn u-button-style u-hover-none u-none u-text-body-color u-btn-4" target="_blank">more</a>
+              </div>
+            </div>
+            <div class="u-align-left u-container-align-center u-container-style u-list-item u-radius-8 u-repeater-item u-shape-round u-video-cover u-white u-list-item-5" data-animation-name="customAnimationIn" data-animation-duration="1500" data-animation-delay="1250">
+              <div class="u-container-layout u-similar-container u-valign-top u-container-layout-5">
+                <img class="u-align-center u-image u-image-contain u-image-default u-image-5" alt="" data-image-width="1920" data-image-height="1234" src="images/1920px-DGRTlogoSQ.svg.png" data-animation-name="customAnimationIn" data-animation-duration="1500" data-animation-delay="1750">
+                <h4 class="u-align-center u-custom-font u-font-montserrat u-text u-text-default u-text-10"> DONGGUAN RAIL TRANSIT</h4>
+                <p class="u-align-center u-custom-font u-font-montserrat u-text u-text-11"> The first line of Dongguan Rail Transit started in 2016. The current operating mileage is 37.8 km.</p>
+                <a href="http://www.dggdjt.com" class="u-active-none u-align-center u-border-1 u-border-active-palette-4-dark-1 u-border-black u-border-hover-palette-4-dark-1 u-btn u-button-style u-hover-none u-none u-text-body-color u-btn-5" target="_blank">more</a>
+              </div>
+            </div>
+            <div class="u-align-left u-container-align-center u-container-style u-list-item u-radius-8 u-repeater-item u-shape-round u-video-cover u-white u-list-item-6" data-animation-name="customAnimationIn" data-animation-duration="1500" data-animation-delay="1250">
+              <div class="u-container-layout u-similar-container u-valign-top u-container-layout-6">
+                <img class="u-align-center u-image u-image-contain u-image-default u-image-6" alt="" data-image-width="1162" data-image-height="898" src="images/2023-05-1617.19.56.png" data-animation-name="customAnimationIn" data-animation-duration="1500" data-animation-delay="1750">
+                <h4 class="u-align-center u-custom-font u-font-montserrat u-text u-text-default u-text-12"> Macao LRT System</h4>
+                <p class="u-align-center u-custom-font u-font-montserrat u-text u-text-13"> The Taipa Line of the Macau Light Rail Transit (LRT) was opened to traffic in 2019, the only line operating at present.</p>
+                <a href="https://www.mlm.com.mo/en/" class="u-active-none u-align-center u-border-1 u-border-active-palette-4-dark-1 u-border-black u-border-hover-palette-4-dark-1 u-btn u-button-style u-hover-none u-none u-text-body-color u-btn-6" target="_blank">more</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="u-align-center u-clearfix u-shading u-video u-section-12" id="sec-bcc8">
+      <div class="u-background-video u-expanded" style="filter: brightness(0.85);">
+        <div class="embed-responsive embed-responsive-1">
+          <iframe style="position: absolute;top: 0;left: 0;width: 100%;height: 100%;" class="embed-responsive-item" src="https://www.youtube.com/embed/LBk-7PLatv8?playlist=LBk-7PLatv8&amp;loop=1&amp;mute=1&amp;showinfo=0&amp;controls=0&amp;start=0&amp;autoplay=1" data-autoplay="1" frameborder="0" allowfullscreen=""></iframe>
+        </div>
+      </div>
+      <div class="u-clearfix u-sheet u-sheet-1">
+        <h2 class="u-align-center u-custom-font u-font-montserrat u-text u-text-body-alt-color u-text-1" data-animation-name="customAnimationIn" data-animation-duration="1500" data-animation-delay="750">RAIL SYSTEM<br>
+        </h2>
+        <div class="u-expanded-width u-list u-list-1">
+          <div class="u-repeater u-repeater-1">
+            <div class="u-align-left u-container-style u-list-item u-radius-16 u-repeater-item u-shape-round u-white u-list-item-1" data-animation-name="customAnimationIn" data-animation-duration="1500" data-animation-delay="1250">
+              <div class="u-container-layout u-similar-container u-container-layout-1">
+                <img class="u-align-center u-image u-image-contain u-image-default u-image-1" alt="" data-image-width="2560" data-image-height="682" src="images/2560px-ChinaRailwayHighspeed.svg.png" data-animation-name="customAnimationIn" data-animation-duration="1500" data-animation-delay="1750">
+                <h4 class="u-align-center u-custom-font u-font-montserrat u-text u-text-default u-text-2"> China Railway High-speed (CRH)</h4>
+                <p class="u-align-center u-custom-font u-font-montserrat u-text u-text-3"> China's high-speed railways (CRH) are currently an important category of transport infrastructure in China and the longest built length and highest usage railway system in the world, designed for speeds of 200-350 km/h. As of June 2022, China has nearly 3,200 kilometres of high-speed railways operating at the high standard of 350 km/h on a regular basis, and by the end of 2022, the country's high-speed railways have operated for approximately 42,000 kilometres.</p>
+                <a href="https://www.12306.cn/en/index.html" class="u-active-none u-align-center u-border-1 u-border-active-palette-4-dark-1 u-border-black u-border-hover-palette-4-dark-1 u-btn u-button-style u-hover-none u-none u-text-body-color u-btn-1" target="_blank">more</a>
+              </div>
+            </div>
+            <div class="u-align-left u-container-style u-list-item u-radius-16 u-repeater-item u-shape-round u-video-cover u-white u-list-item-2" data-animation-name="customAnimationIn" data-animation-duration="1500" data-animation-delay="1250">
+              <div class="u-container-layout u-similar-container u-container-layout-2">
+                <img class="u-align-center u-image u-image-contain u-image-default u-image-2" alt="" data-image-width="1280" data-image-height="1317" src="images/1280px-PRDIR_logo.svg.png" data-animation-name="customAnimationIn" data-animation-duration="1500" data-animation-delay="1750">
+                <h4 class="u-align-center u-custom-font u-font-montserrat u-text u-text-default u-text-4"><b>Pearl River Delta Metropolitan Region Intercity Railway System</b>
+                </h4>
+                <p class="u-align-center u-custom-font u-font-montserrat u-text u-text-5"> The Pearl River Delta Intercity  Rail Transit (PRDIR) is a rapid transit railway system planned, designed, constructed and operated for the urban agglomeration in the Greater Bay Area, operating at a speed of approximately 200km/h. When completed, the system will ensure that the fastest time required for cities in the Greater Bay Area to reach any of the surrounding cities with trains can be kept within 60 minutes.</p>
+                <a href="http://www.gzrailway.com.cn/index" class="u-active-none u-align-center u-border-1 u-border-active-palette-4-dark-1 u-border-black u-border-hover-palette-4-dark-1 u-btn u-button-style u-hover-none u-none u-text-body-color u-btn-2" target="_blank">more</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="u-align-left u-clearfix u-image u-shading u-section-13" src="" data-image-width="2830" data-image-height="986" id="sec-f972">
+      <div class="u-clearfix u-sheet u-sheet-1">
+        <h1 class="u-custom-font u-font-montserrat u-text u-text-default u-title u-text-1" data-animation-name="customAnimationIn" data-animation-duration="1000">100 YEARS of<br>GBA Rail Transit
+        </h1>
+        <p class="u-custom-font u-font-montserrat u-large-text u-text u-text-variant u-text-2" data-animation-name="customAnimationIn" data-animation-duration="1000"> From the Canton-Kowloon Railway in 1911 during the Hong Kong colonial era, to the Guangzhou-Shenzhen railway, the first high-speed railway after the Republic's Reform and Open-up, to the Guangzhou-Shenzhen-Hong Kong Express Rail Link in 2018, which can travel from Guangzhou to Shenzhen in just 48 minutes at 350 km/h, you have a lot to explore.</p>
+        <a href="Subway.html" class="u-border-none u-btn u-btn-round u-button-style u-custom-font u-font-montserrat u-radius-7 u-white u-btn-1" target="_blank" data-animation-name="customAnimationIn" data-animation-duration="1000">Try&nbsp;Interactive map</a>
+      </div>
+    </section>
+    <section class="u-align-center u-clearfix u-image u-shading u-section-14" src="" data-image-width="2000" data-image-height="1201" id="sec-c0d3">
+      <div class="u-clearfix u-sheet u-sheet-1">
+        <h1 class="u-custom-font u-font-montserrat u-text u-text-default u-title u-text-1" data-animation-name="customAnimationIn" data-animation-duration="2000" data-animation-delay="500">EPILOGUE</h1>
+        <p class="u-custom-font u-font-montserrat u-large-text u-text u-text-variant u-text-2" data-animation-name="customAnimationIn" data-animation-duration="2000" data-animation-delay="500"> From Guangzhou, the eastern starting point of the Maritime Silk Road and a thousand-year merchant capital, to Hong Kong, one of the world's top financial centres and the Pearl of the Orient, to Shenzhen, which has grown from a small fishing village to a world centre of technology in 40 years, the story of the Guangdong-Hong Kong-Macao Greater Bay Area is just beginning.<br>
+          <br>A key aspect of urban regeneration is an efficient and sustainable transport system that supports revitalisation efforts. Looking at the historical landscape of ‘the Great Bay Area on the Track', we see that the rail system supports the mobility of residents, the connectivity and interaction between cities, and the regeneration of the entire region of the GBA.<br>
+        </p>
+      </div>
+    </section>
+    <section class="u-clearfix u-grey-5 u-section-15" id="sec-41ed">
+      <div class="u-clearfix u-sheet u-sheet-1">
+        <div class="u-expanded-width u-list u-list-1">
+          <div class="u-repeater u-repeater-1">
+            <div class="u-container-style u-list-item u-repeater-item">
+              <div class="u-container-layout u-similar-container u-valign-bottom-sm u-container-layout-1">
+                <div alt="" class="u-image u-image-circle u-image-1" src="" data-image-width="759" data-image-height="1024"></div>
+                <h5 class="u-align-center u-custom-font u-font-montserrat u-text u-text-1">JIN JIANG</h5>
+                <p class="u-align-center u-custom-font u-font-montserrat u-text u-text-2"> Co-Producer</p><span class="u-file-icon u-icon u-icon-1"><img src="images/2111432.png" alt=""></span>
+                <p class="u-align-left-lg u-align-left-md u-align-left-xl u-custom-font u-font-montserrat u-text u-text-3">
+                  <a class="u-active-none u-border-none u-btn u-button-link u-button-style u-hover-none u-none u-btn-1" href="https://github.com/JinJiang22" target="_blank"> JinJiang22</a>
+                </p>
+                <p class="u-align-left-lg u-align-left-md u-align-left-xl u-custom-font u-font-montserrat u-text u-text-default-xl u-text-4"> jiangjin9909@gmail.com</p><span class="u-file-icon u-icon u-icon-2"><img src="images/732200.png" alt=""></span>
+              </div>
+            </div>
+            <div class="u-container-style u-list-item u-repeater-item">
+              <div class="u-container-layout u-similar-container u-valign-bottom-sm u-container-layout-2">
+                <div alt="" class="u-image u-image-circle u-image-2" src="" data-image-width="770" data-image-height="1027"></div>
+                <h5 class="u-align-center u-custom-font u-font-montserrat u-text u-text-5">SHUMENG ZHANG</h5>
+                <p class="u-align-center u-custom-font u-font-montserrat u-text u-text-6"> Co-Producer</p><span class="u-file-icon u-icon u-icon-3"><img src="images/2111432.png" alt=""></span>
+                <p class="u-align-left-lg u-align-left-md u-align-left-xl u-custom-font u-font-montserrat u-text u-text-7">
+                  <a class="u-active-none u-border-hover-grey-75 u-border-none u-btn u-button-link u-button-style u-hover-none u-none u-btn-2" href="https://github.com/Shumeng-Zhang" target="_blank"> Shumeng-Zhang</a>
+                </p>
+                <p class="u-align-left-lg u-align-left-md u-align-left-xl u-custom-font u-font-montserrat u-text u-text-default-xl u-text-8"> sm89648341@gmail.com</p><span class="u-file-icon u-icon u-icon-4"><img src="images/732200.png" alt=""></span>
+              </div>
+            </div>
+            <div class="u-container-style u-list-item u-repeater-item">
+              <div class="u-container-layout u-similar-container u-valign-bottom-sm u-container-layout-3">
+                <div alt="" class="u-image u-image-circle u-image-3" src="" data-image-width="810" data-image-height="1716"></div>
+                <h5 class="u-align-center u-custom-font u-font-montserrat u-text u-text-9">ZHIANG CHEN</h5>
+                <p class="u-align-center u-custom-font u-font-montserrat u-text u-text-10"> Co-Producer</p><span class="u-file-icon u-icon u-icon-5"><img src="images/2111432.png" alt=""></span>
+                <p class="u-align-left-lg u-align-left-md u-align-left-xl u-custom-font u-font-montserrat u-text u-text-11">
+                  <a class="u-active-none u-border-none u-btn u-button-link u-button-style u-hover-none u-none u-btn-3" href="https://github.com/DanteChen0825" target="_blank"> DanteChen0825</a>
+                </p>
+                <p class="u-align-left-lg u-align-left-md u-align-left-xl u-custom-font u-font-montserrat u-text u-text-default-xl u-text-12">dantechen0825@gmail.com</p><span class="u-file-icon u-icon u-icon-6"><img src="images/732200.png" alt=""></span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    
+    <footer class="u-align-center u-clearfix u-footer u-grey-80 u-footer" id="sec-e80b"><div class="u-clearfix u-sheet u-valign-middle u-sheet-1">
+        <p class="u-custom-font u-font-montserrat u-small-text u-text u-text-variant u-text-1">© Copyright Jin Jiang, Shumeng Zhang, Zhiang Chen from <a href="https://www.ucl.ac.uk" class="u-active-none u-border-none u-btn u-button-link u-button-style u-custom-font u-font-montserrat u-hover-none u-none u-text-body-alt-color u-btn-1" target="_blank">U<span class="u-text-body-alt-color"></span>niversity College London
+          </a>, <a href="https://www.ucl.ac.uk/bartlett/casa/bartlett-centre-advanced-spatial-analysis" class="u-active-none u-border-none u-btn u-button-link u-button-style u-custom-font u-font-montserrat u-hover-none u-none u-text-body-alt-color u-btn-2" target="_blank">The Bartlett Centre for Advanced Spatial Analysis</a>
+        </p>
+      </div></footer>
+
+    
+    
+   
+<script>
+    
+    // the comparision map GBA day and night
+	mapboxgl.accessToken = 'pk.eyJ1IjoiZGFudGVjaGVuMDgyNSIsImEiOiJjbGQxbGhhOTExaXBuM250Z2d6MWhzMnloIn0.EEsuGRqk0Uj_e1Q90WqPfQ';
+    const beforeMap = new mapboxgl.Map({
+        container: 'before',
+        // Choose from Mapbox's core styles, or make your own style with Mapbox Studio
+        style: 'mapbox://styles/dantechen0825/clhkj360701ga01qtghoh09rg',
+        center: [113.5, 22.8],
+        zoom: 7.4,
+        maxZoom: 14,
+        minZoom: 6,
+    });
+
+    const afterMap = new mapboxgl.Map({
+        container: 'after',
+        style: 'mapbox://styles/dantechen0825/clhjj38z501ix01prh6l8fvha',
+        center: [113.5, 22.8],
+        zoom: 7.4,
+        maxZoom: 14,
+        minZoom: 6,
+    });
+
+    // A selector or reference to HTML element
+    const container = '#comparison-container';
+
+    const map1 = new mapboxgl.Compare(beforeMap, afterMap, container, {
+        // Set this to enable comparing two maps by mouse movement:
+        // mousemove: true
+    });
+</script>
+    
+<script>
+  
+  
+  // 1-hour living circle interactive map
+    const circle = document.querySelector('.onecircle20171');
+    
+    const tooltip1 = document.querySelector('.tooltip1');
+    const tooltip2 = document.querySelector('.tooltip2');
+    
+    
+
+    const radius = 150; // 圆环半径，根据需要进行调整
+    let isInsideCircle = false;
+
+    document.addEventListener('mouseenter',() => {
+      isInsideCircle = true;
+    });
+    document.addEventListener('mouseleave',() => {
+      isInsideCircle = false;
+      tooltip1.style.display = 'none';
+      tooltip2.style.display = 'none';
+    });
+
+
+    document.addEventListener('mousemove', function(event) {
+      const rect = circle.getBoundingClientRect();
+      const centerX = rect.left + rect.width/2;
+      const centerY = rect.top + rect.height/2;
+
+      const clientX = event.clientX;
+      const clientY = event.clientY;
+
+      const distanceFromCenter = Math.sqrt(Math.pow(clientX - centerX, 2) + Math.pow(clientY-centerY, 2));
+
+      if (distanceFromCenter < radius) {
+        // 鼠标在圆环内部
+        tooltip1.style.display = 'block';
+        tooltip1.style.left = `${clientX}px`;
+        tooltip1.style.top = `${clientY}px`;
+        tooltip2.style.display = 'none';
+      }else if (distanceFromCenter > radius && distanceFromCenter < (radius + 100)){
+        tooltip1.style.display = 'none';
+        tooltip2.style.display = 'block';
+        tooltip2.style.left = `${clientX}px`;
+        tooltip2.style.top = `${clientY}px`;
+      } else {
+        // 鼠标在圆环外部
+        tooltip1.style.display = 'none';
+        tooltip2.style.display = 'none';
+      }
+      // 设置文本框位置
+      const tooltipX = clientX;
+      const tooltipY = clientY;
+      tooltip1.style.left = `${clientX - 100}px`;
+      tooltip1.style.top = `${clientY - 50}px`;
+      tooltip2.style.left = `${clientX - 100}px`;
+      tooltip2.style.top = `${clientY - 50}px`;
+    });
+
+
+  //第三个元素
+    const circle1 = document.querySelector('.circle1');
+    const radius1 = 150;
+    let isInsideCircle1 = false;
+
+    circle.addEventListener('mouseenter',() => {
+      isInsideCircle1 = true;
+    });
+    circle.addEventListener('mouseleave',() => {
+      isInsideCircle1 = false;
+    });
+
+    document.addEventListener('mousemove', (event) => {
+    
+      const rect = circle.getBoundingClientRect();
+      const centerX = rect.left + rect.width/2;
+      const centerY = rect.top + rect.height/2;
+
+      const clientX = event.clientX;
+      const clientY = event.clientY;
+
+      const distanceFromCenter = Math.sqrt(Math.pow(clientX - centerX, 2) + Math.pow(clientY-centerY, 2));
+
+    if (distanceFromCenter < radius1) {
+      circle1.style.display = 'block';
+    } else {
+      circle1.style.display = 'none';
+    }
+    });
+
+    const circle2 = document.querySelector('.circle2');
+    const radius2 = 250;
+    let isInsideCircle2 = false;
+
+    circle.addEventListener('mouseenter',() => {
+      isInsideCircle2 = true;
+    });
+    circle.addEventListener('mouseleave',() => {
+      isInsideCircle2 = false;
+    });
+
+    document.addEventListener('mousemove', (event) => {
+    
+      const rect = circle.getBoundingClientRect();
+      const centerX = rect.left + rect.width/2;
+      const centerY = rect.top + rect.height/2;
+
+      const clientX = event.clientX;
+      const clientY = event.clientY;
+
+      const distanceFromCenter = Math.sqrt(Math.pow(clientX - centerX, 2) + Math.pow(clientY-centerY, 2));
+
+    if (distanceFromCenter > radius1 &&distanceFromCenter < radius2) {
+      circle2.style.display = 'block';
+    } else {
+      circle2.style.display = 'none';
+    }
+    });
+
+
+    
+
+  </script>
+    
+    
+
+        <script>
+            
+            // interactive map with city highlight and popup
+            
+        mapboxgl.accessToken = 'pk.eyJ1IjoiZGFudGVjaGVuMDgyNSIsImEiOiJjbGQxbGhhOTExaXBuM250Z2d6MWhzMnloIn0.EEsuGRqk0Uj_e1Q90WqPfQ';
+
+        var map2 = new mapboxgl.Map({
+            container: 'map2',
+            style: 'mapbox://styles/dantechen0825/cli0loz7y00eu01pgb3ah9cre',
+            center: [113.280637, 23.125178], // Starting center position
+            zoom: 6.6, // Starting zoom level
+            maxZoom: 9,
+            minZoom: 6,
+        });
+
+        map2.on('load', function() {
+
+
+        map2.addLayer({                  // Add the line highlight layer. This layer has a filter, which initially is empty.
+            id: 'highlight',
+            type: 'line',
+            source: {
+              type: 'vector',
+              url: 'mapbox://dantechen0825.6pbpylk4' // Your Mapbox tileset Map ID
+            },
+            'source-layer': 'BPG-267oef', // name of tilesets
+            'layout': {
+                'visibility': 'visible'
+            },
+            paint: {
+                'line-color': '#565656',
+                'line-width': 2,
+                // 'line-cap': 'round'
+                },
+            filter: ['==','地市','empty']
+          });
+
+    map2.on('mousemove', function(e) {       // This is the main event listner which is triggered when the mouse moves
+          var lafeatures = map2.queryRenderedFeatures(e.point, {   // This queries whether the mouse is over an object in the LocalAuthorities layer
+            layers: ['bpg-267oef (1)']
+          });
+
+            if (lafeatures.length==1) {   // This if statement is run when the mouse is over a local authority
+        map2.setFilter('highlight', ['==','地市',lafeatures[0].properties.地市]);  // Filter the highlight layer to show the local authority outline
+        } else {
+                map2.setFilter('highlight', ['==','地市','null']);
+        }
+        });   
+ 
+});
+
+var popup = new mapboxgl.Popup({
+        closeButton: false,
+        closeOnClick: false
+    });
+        
+    map2.on('mousemove', function(e) {
+      var ctr = map2.queryRenderedFeatures(e.point, {   // This queries whether the mouse is over an object in the LocalAuthorities layer
+        layers: ['bpg-267oef (1)']
+    });
+
+  if (ctr.length==1) {   // This if statement is run when the mouse is over a local authority
+
+    // 设置高亮图层的过滤条件，以显示所选国家的轮廓  
+    map2.setFilter('highlight', ['==','地市',ctr[0].properties.地市]);  // Filter the highlight layer to show the local authority outline
+      var description ='<div style="text-align: left;">'+ '<b>'+
+        ctr[0].properties.地市 + '</b>' +'<br>'+
+        '<span style=" fontSize:20; fontFamily:Optima">Population: </span> ' + ctr[0].properties.population +'<br>'+
+
+        '<span style=" fontSize:20; fontFamily:Optima">GDP per capita($): </span> ' + ctr[0].properties.GDP +
+        '<div>';
+      popup.setLngLat(e.lngLat)
+          .setHTML(description)
+          .addTo(map2);
+      var offset = [0, -10]; // 设置X和Y方向的偏移量
+      popup.setOffset(offset);
+      } });
+
+      map2.on('mouseleave', 'bpg-267oef (1)', function() {
+              map2.getCanvas().style.cursor = '';
+              popup.remove();
+      });  
+    </script>
+   
+</body>
+</html>

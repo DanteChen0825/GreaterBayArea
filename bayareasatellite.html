@@ -1,0 +1,756 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8' />
+    <title>Urbanization of the Greater Bay Area 1975-2030</title>
+    <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+    <link href="https://api.mapbox.com/mapbox-gl-js/v2.12.0/mapbox-gl.css" rel="stylesheet">
+    <script src="https://api.mapbox.com/mapbox-gl-js/v2.12.0/mapbox-gl.js"></script>
+    <link href='bayareasatellite.css' rel='stylesheet' />
+</head>
+
+<body>
+
+<div id='map'></div>
+
+<div class='map-overlay top'>
+    <div class='map-overlay-inner'>
+        <h2>Urbanization of the Greater Bay Area</h2>     
+    </div>
+</div>
+    
+<div class='map-overlay-bottom'>
+    <div class='button'>
+    <button class="button-57" role="button" onclick="location.href='Home.html'"><span class="text">Homepage</span><span>Back to Homepage</span></button>
+        <button class="button-57" role="button" id="autoplay"><span class="text">Autoplay</span><span>Autoplay On/Off</span></button>
+        <button class="button-57" role="button" id="rail"><span class="text">Railway</span><span>Railway On/Off</span></button>
+        
+        <button class="button-58" role="button" id="GBA"><span class="text">Greater Bay Area</span><span>Fly to the GBA</span></button>
+        <button class="button-58" role="button" id="guangzhou"><span class="text">Guangzhou</span><span>Fly to Guangzhou</span></button>
+        <button class="button-58" role="button" id="shenzhen"><span class="text">Shenzhen</span><span>Fly to Shenzhen</span></button>
+        <button class="button-58" role="button" id="HK"><span class="text">Hong Kong</span><span>Fly to HK</span></button>
+
+        </div>
+    <div class="container">
+  
+  <div class="range-slider">
+    <span id="year" class="rs-label">2030</span>
+    <input id="slider" class="rs-range" type="range" value="2030" min="1975" max="2030" step="5">
+  </div>
+    </div>
+    
+    <p class="credit"> The interactive map shows the urbanization process of the Greater Bay Area, and the transportation system including <span style="color: blue">metro</span>, <span style="color: orange">intercity railways</span> and <span style="color: red">high-speed railways</span>. <br> Data: <a href="https://ghsl.jrc.ec.europa.eu/" target="_blank">Global Human Settlement Layer</a>, <a href="https://lbs.amap.com/news/js_mou" target="_blank">Amap API</a></p>
+</div>
+    
+
+
+
+<script>
+    // year range slider
+    var rangeSlider = document.getElementById("slider");
+    var rangeBullet = document.getElementById("year");
+    rangeSlider.addEventListener("input", showSliderValue, false);
+    function showSliderValue() {
+        rangeBullet.innerHTML = rangeSlider.value;
+        rangeBullet.style.left = ((2030-rangeSlider.value) * -1.66 + 95) + "%";
+    }
+</script>
+
+<script>
+    // Urbanisation Interactive Map using mapbox
+    mapboxgl.accessToken = 'pk.eyJ1IjoiZGFudGVjaGVuMDgyNSIsImEiOiJjbGQxbGhhOTExaXBuM250Z2d6MWhzMnloIn0.EEsuGRqk0Uj_e1Q90WqPfQ'; // Put your Mapbox Public Access token here
+
+    // Load a new map in the 'map' HTML div
+    var map = new mapboxgl.Map({
+    container: 'map', // container id
+    style: 'mapbox://styles/dantechen0825/clhhvy1ut00qf01pe5tb97op2', // style location 
+    center: [113.2, 22.9], // starting position [lng, lat]
+    zoom: 7, // starting zoom
+    maxZoom: 14,
+    minZoom: 6,
+    });
+    
+    map.addControl(new mapboxgl.NavigationControl());
+
+    map.on('load', function() {
+        // load base map
+        contrast_value = -0.3;
+        opacity_value= 0.01;
+        year_id = 'bayarea_2030';
+        year_url = 'mapbox://dantechen0825.5v3zjgzh';
+        year_source_layer = 'bayarea_2030-1574aj';
+        
+        const layers = map.getStyle().layers;
+        
+        // Find the index of the first symbol layer in the map style.
+        let firstSymbolId;
+        for (const layer of layers) {
+            if (layer.id === 'water') {
+                firstSymbolId = layer.id;
+                break;
+            }
+        }
+        
+         // add 2030 urbanlisation layer when open the webpage
+            map.addLayer({
+                    id: year_id,
+                    type: 'raster',
+                    source: {
+                      type: 'raster',
+                      url: year_url, // Your Mapbox tileset Map ID
+                      tileSize: 64
+                    },
+                    'source-layer': year_source_layer, // name of tilesets
+                    'paint' : {
+                        'raster-opacity' : 0.9,
+                        'raster-contrast' :contrast_value,
+                    }
+                    },
+                      firstSymbolId   
+                  );
+        
+        // add administrative boundary
+        map.addLayer({
+            id: 'bayarea',
+                    type: 'fill',
+                    source: {
+                      type: 'vector',
+                      url: 'mapbox://dantechen0825.9hm1prda' // Your Mapbox tileset Map ID
+                    },
+                    'source-layer': 'bayarea-av4uhk', // name of tilesets
+                    'layout': {
+                        'visibility': 'visible'
+                    },
+                    paint: {
+                        'fill-color': "rgba(120, 120, 120,1)",
+                        'fill-opacity':opacity_value,
+                    },
+            
+            firstSymbolId   
+            
+        });
+        
+        // get the first raster layer position to add the following layers in the correct order
+        let firstRasterId;
+        for (const layer of layers) {
+            if (layer.id === 'settlement-subdivision-label') {
+                firstRasterId = layer.id;
+                break;
+            }
+        }
+        
+        // Assign an event listner to follow up the year slider change
+        document.getElementById('slider').addEventListener('input', function(e) {
+            
+                // get different year urbanlisation layer info
+            
+                if (document.getElementById('year').textContent == 2030) {
+                    year_id = 'bayarea_2030';
+                    year_url = 'mapbox://dantechen0825.5v3zjgzh';
+                    year_source_layer = 'bayarea_2030-1574aj';
+                };
+                
+                if (document.getElementById('year').textContent == 2025) {
+                    year_id = 'bayarea_2025';
+                    year_url = 'mapbox://dantechen0825.9x72ibpy';
+                    year_source_layer = 'bayarea_2025-8ctass';
+                };
+            
+            if (document.getElementById('year').textContent == 2020) {
+                    year_id = 'bayarea_2020';
+                    year_url = 'mapbox://dantechen0825.0wod7bj5';
+                    year_source_layer = 'bayarea_2000-1o1njt';
+                };
+            
+            if (document.getElementById('year').textContent == 2015) {
+                    year_id = 'bayarea_2015';
+                    year_url = 'mapbox://dantechen0825.00dezenj';
+                    year_source_layer = 'bayarea_2015-3jorfe';
+                };
+            
+            if (document.getElementById('year').textContent == 2010) {
+                    year_id = 'bayarea_2010';
+                    year_url = 'mapbox://dantechen0825.6k93jx9f';
+                    year_source_layer = 'bayarea_2010-1a5oqj';
+                };
+            
+            if (document.getElementById('year').textContent == 2005) {
+                    year_id = 'bayarea_2005';
+                    year_url = 'mapbox://dantechen0825.1yvg10kj';
+                    year_source_layer = 'bayarea_2005-11e3g3';
+                };
+            
+            
+            if (document.getElementById('year').textContent == 2000) {
+                    year_id = 'bayarea_2000';
+                    year_url = 'mapbox://dantechen0825.0wod7bj5';
+                    year_source_layer = 'bayarea_2000-1o1njt';
+                };
+            
+            
+            if (document.getElementById('year').textContent == 1995) {
+                    year_id = 'bayarea_1995';
+                    year_url = 'mapbox://dantechen0825.8e8mhurh';
+                    year_source_layer = 'bayarea_1995-0os12w';
+                };
+            
+            if (document.getElementById('year').textContent == 1990) {
+                    year_id = 'bayarea_1990';
+                    year_url = 'mapbox://dantechen0825.9zi4joh6';
+                    year_source_layer = 'bayarea_1990-6dveq6';
+                };
+            
+            if (document.getElementById('year').textContent == 1985) {
+                    year_id = 'bayarea_1985';
+                    year_url = 'mapbox://dantechen0825.7ijit4ai';
+                    year_source_layer = 'bayarea_1985-akytlu';
+                };
+            
+            if (document.getElementById('year').textContent == 1980) {
+                    year_id = 'bayarea_1980';
+                    year_url = 'mapbox://dantechen0825.6ithltk6';
+                    year_source_layer = 'bayarea_1980-4zazpr';
+                };
+            
+
+                if (document.getElementById('year').textContent == 1975) {
+                    year_id = 'bayarea_1975';
+                    year_url = 'mapbox://dantechen0825.6ji291sm';
+                    year_source_layer = 'bayarea_1975-84b475';
+                };
+
+            // Clear the previous layers
+            
+            const year_ids = ['bayarea_1975', 'bayarea_1980', 'bayarea_1985', 'bayarea_1990',
+                      'bayarea_1995', 'bayarea_2000', 'bayarea_2005', 'bayarea_2010',
+                      'bayarea_2015', 'bayarea_2020', 'bayarea_2025', 'bayarea_2030'];
+            
+            for (const i of year_ids) {
+                if (map.getLayer(i)) {
+                map.removeLayer(i);
+            };
+            
+            if (map.getSource(i)) {
+                map.removeSource(i);
+            };
+            }
+            
+            // add the current year urbanlisation layer
+            
+            map.addLayer({
+                    id: year_id,
+                    type: 'raster',
+                    source: {
+                      type: 'raster',
+                      url: year_url, // Your Mapbox tileset Map ID
+                      tileSize: 64
+                    },
+                    'source-layer': year_source_layer, // name of tilesets
+                    'paint' : {
+                        'raster-opacity' : 0.9,
+                        'raster-contrast' :contrast_value,
+                    }
+                    },
+                      firstSymbolId   
+                  );
+                         
+                });
+        
+        
+        // add subway line
+        map.addLayer({
+                    id: 'Subway_test',
+                    type: 'line',
+                    source: {
+                      type: 'vector',
+                      url: 'mapbox://dantechen0825.aetc2mv3' // Your Mapbox tileset Map ID
+                    },
+                    'source-layer': 'Subway_0523-08g5d7', // name of tilesets
+                    'layout': {
+                        'visibility': 'visible'
+                    },
+                    paint: {
+                        'line-color': 'blue',
+                        'line-width':2
+                    }
+                  },
+                      firstRasterId );
+        // add intercity rail line
+            map.addLayer({
+                    id: 'IntercityRail_test',
+                    type: 'line',
+                    source: {
+                      type: 'vector',
+                      url: 'mapbox://dantechen0825.8d33hb11' // Your Mapbox tileset Map ID
+                    },
+                    'source-layer': 'ICR_0523-8f8t72', // name of tilesets
+                    'layout': {
+                        'visibility': 'visible'
+                    },
+                    paint: {
+                        'line-color': 'orange',
+                        'line-width':2
+                    }
+                  },
+                      firstRasterId  );
+        
+        // add high speed rail line
+        map.addLayer({
+                    id: 'HighspeedRail_test',
+                    type: 'line',
+                    source: {
+                      type: 'vector',
+                      url: 'mapbox://dantechen0825.7hzucxk7' // Your Mapbox tileset Map ID
+                    },
+                    'source-layer': 'HSR_0525-7bs0af', // name of tilesets
+                    'layout': {
+                        'visibility': 'visible'
+                    },
+                    paint: {
+                        'line-color': 'red',
+                        'line-width':3
+                    }
+                  },
+                     firstRasterId   );
+        
+        // add subway station
+            map.addLayer({
+                    id: 'Subway_stations_test',
+                    type: 'circle',
+                    source: {
+                      type: 'vector',
+                      url: 'mapbox://dantechen0825.cnrgs8f7' 
+                    },
+                    'source-layer': 'Subway_stations_0521-9qvpng', 
+                    'layout': {
+                        'visibility': 'visible'
+                    },
+                    paint: {
+                        'circle-color': 'blue',
+                        'circle-opacity': 0.95,
+                        'circle-stroke-width': {
+                    stops: [[9, 0], [10, 2], [16, 3]]
+                    },
+                        'circle-stroke-color': '#000',
+                        'circle-stroke-opacity': 1,
+                        'circle-radius': {stops: [[10, 0], [11, 3], [14, 4], [18, 8]]},
+                            }
+                  },
+                      firstRasterId    );
+        
+        
+         // add intercity railway station
+            map.addLayer({
+                    id: 'IntercityRail_stations_test',
+                    type: 'circle',
+                    source: {
+                      type: 'vector',
+                      url: 'mapbox://dantechen0825.097u9l8m' 
+                    },
+                    'source-layer': 'IntercityRail_stations_0523-0wzskw', 
+                    'layout': {
+                        'visibility': 'visible'
+                    },
+                    paint: {
+                        'circle-color': 'orange',
+                        'circle-opacity': 0.95,
+                        'circle-stroke-width': {
+                    stops: [[9, 0], [10, 2], [16, 3]]
+                    },
+                        'circle-stroke-color': '#000',
+                        'circle-stroke-opacity': 1,
+                        'circle-radius': {stops: [[10, 0], [11, 3], [14, 4], [18, 8]]},
+                            }
+                  },
+                      firstRasterId    );
+        
+
+            // add highspeed rail station
+            map.addLayer({
+                    id: 'HighspeedRail_stations_test',
+                    type: 'circle',
+                    source: {
+                      type: 'vector',
+                      url: 'mapbox://dantechen0825.ag3s8cnt' 
+                    },
+                    'source-layer': 'HSR_stations_0523-763n9x', 
+                    'layout': {
+                        'visibility': 'visible'
+                    },
+                    paint: {
+                        'circle-color': 'red',
+                        'circle-opacity': 0.95,
+                        'circle-stroke-width': {
+                    stops: [[7, 0], [9, 2], [14, 3]]
+                    },
+                        'circle-stroke-color': '#000',
+                        'circle-stroke-opacity': 1,
+                        'circle-radius': {stops: [[8, 0], [9, 3], [12, 4], [16, 8]]},
+                            }
+                  },
+                      firstRasterId  );
+        
+        // follow up year slider change
+        document.getElementById('slider').addEventListener('input', function(e) {
+                
+            // clear all the auto play
+                for (var i = 1; i < 99999; i++)
+                    window.clearInterval(i);
+                
+                autoplay_on = false;
+            
+            // filter the railway lines and stations by year
+            
+                document.getElementById('year').textContent = parseInt(e.target.value); 
+                
+                map.setFilter('Subway_stations_test', ['<=', 'time', parseInt(e.target.value)]);
+                map.setFilter('Subway_test', ['<=', 'time', parseInt(e.target.value)]);
+                map.setFilter('IntercityRail_test', ['<=', 'time', parseInt(e.target.value)]);
+                map.setFilter('IntercityRail_stations_test', ['<=', 'time', parseInt(e.target.value)]);
+                map.setFilter('HighspeedRail_test', ['<=', 'time', parseInt(e.target.value)]);
+                map.setFilter('HighspeedRail_stations_test', ['<=', 'time', parseInt(e.target.value)]);
+                });
+        
+        // add control to railway button that display railways
+        
+        document.getElementById('rail').addEventListener('click', () => {
+            
+            if (map.getLayoutProperty('Subway_test', 'visibility') === 'visible') {
+            map.setLayoutProperty('Subway_test', 'visibility', 'none');
+            map.setLayoutProperty('Subway_stations_test', 'visibility', 'none');
+            map.setLayoutProperty('IntercityRail_test', 'visibility', 'none');
+            map.setLayoutProperty('IntercityRail_stations_test', 'visibility', 'none');
+            map.setLayoutProperty('HighspeedRail_test', 'visibility', 'none');
+            map.setLayoutProperty('HighspeedRail_stations_test', 'visibility', 'none');
+                
+                contrast_value = -0.3;
+
+        } else {
+            map.setLayoutProperty('Subway_test','visibility','visible');
+            map.setLayoutProperty('Subway_stations_test', 'visibility', 'visible');
+            map.setLayoutProperty('IntercityRail_test','visibility','visible');
+            map.setLayoutProperty('IntercityRail_stations_test', 'visibility', 'visible');
+            map.setLayoutProperty('HighspeedRail_test','visibility','visible');
+            map.setLayoutProperty('HighspeedRail_stations_test','visibility','visible');
+
+            contrast_value = -0.3;
+        } 
+        }); 
+        
+        // fly to locations
+        document.getElementById('GBA').addEventListener('click', () => {
+            map.flyTo({
+                center: [113.2, 22.9],  
+                essential: true,
+                speed: 0.25,
+                zoom: 7.5,
+                bearing: 0,
+                pitch: 0
+            })
+        });  // fly to GBA when click the button
+        
+        document.getElementById('guangzhou').addEventListener('click', () => {
+            map.flyTo({
+                center: [113.3, 23.1],  
+                essential: true,
+                speed: 0.25,
+                zoom: 11,
+                bearing: 0,
+                pitch: 0
+            })
+        });  // fly to Guangzhou when click the button
+        
+        document.getElementById('shenzhen').addEventListener('click', () => {
+            map.flyTo({
+                center: [114.03, 22.53],  
+                essential: true,
+                speed: 0.25,
+                zoom: 11,
+                bearing: 0,
+                pitch: 0
+            })
+        });  // fly to Shenzhen when click the button
+            
+        document.getElementById('HK').addEventListener('click', () => {
+            map.flyTo({
+                center: [114.2, 22.3],  
+                essential: true,
+                speed: 0.25,
+                zoom: 11,
+                bearing: 0,
+                pitch: 0
+            })
+        });  // fly to Shenzhen when click the button
+        
+       
+        
+        
+  // create autoplay
+
+    autoplay_on = false;
+        
+    document.getElementById("autoplay").addEventListener("click", () => {
+        
+        if (autoplay_on == true) {
+            autoplay_on = false;
+            for (var i = 1; i < 99999; i++)
+            window.clearInterval(i);
+        }else{
+            autoplay_on = true;
+            autoplay = setInterval(function(){
+                if (document.getElementById("slider").value == 2030) {
+                    document.getElementById("slider").stepDown(11);
+                    document.getElementById('year').textContent = document.getElementById("slider").value;
+                    document.getElementById("year").style.left = ((document.getElementById("slider").value - 2030) * 1.66 + 95 + "%");
+                    
+                    map.setFilter('Subway_stations_test', ['<=', 'time', parseInt(document.getElementById("slider").value)]);
+                    map.setFilter('Subway_test', ['<=', 'time', parseInt(document.getElementById("slider").value)]);
+                    map.setFilter('IntercityRail_test', ['<=', 'time', parseInt(document.getElementById("slider").value)]);
+                    map.setFilter('IntercityRail_stations_test', ['<=', 'time', parseInt(document.getElementById("slider").value) ]);
+                    map.setFilter('HighspeedRail_test', ['<=', 'time', parseInt(document.getElementById("slider").value) ]);
+                    map.setFilter('HighspeedRail_stations_test', ['<=', 'time', parseInt(document.getElementById("slider").value) ]);
+                    
+                    if (document.getElementById('year').textContent == 2030) {
+                        year_id = 'bayarea_2030';
+                        year_url = 'mapbox://dantechen0825.5v3zjgzh';
+                        year_source_layer = 'bayarea_2030-1574aj';
+                    };
+                
+                    if (document.getElementById('year').textContent == 2025) {
+                        year_id = 'bayarea_2025';
+                        year_url = 'mapbox://dantechen0825.9x72ibpy';
+                        year_source_layer = 'bayarea_2025-8ctass';
+                    };
+            
+                    if (document.getElementById('year').textContent == 2020) {
+                        year_id = 'bayarea_2020';
+                        year_url = 'mapbox://dantechen0825.0wod7bj5';
+                        year_source_layer = 'bayarea_2000-1o1njt';
+                    }; 
+            
+                    if (document.getElementById('year').textContent == 2015) {
+                        year_id = 'bayarea_2015';
+                        year_url = 'mapbox://dantechen0825.00dezenj';
+                        year_source_layer = 'bayarea_2015-3jorfe';
+                    };
+            
+                    if (document.getElementById('year').textContent == 2010) {
+                        year_id = 'bayarea_2010';
+                        year_url = 'mapbox://dantechen0825.6k93jx9f';
+                        year_source_layer = 'bayarea_2010-1a5oqj';
+                    };
+            
+                    if (document.getElementById('year').textContent == 2005) {
+                        year_id = 'bayarea_2005';
+                        year_url = 'mapbox://dantechen0825.1yvg10kj';
+                        year_source_layer = 'bayarea_2005-11e3g3';
+                    };
+            
+            
+                    if (document.getElementById('year').textContent == 2000) {
+                        year_id = 'bayarea_2000';
+                        year_url = 'mapbox://dantechen0825.0wod7bj5';
+                        year_source_layer = 'bayarea_2000-1o1njt';
+                    };
+            
+            
+                    if (document.getElementById('year').textContent == 1995) {
+                        year_id = 'bayarea_1995';
+                        year_url = 'mapbox://dantechen0825.8e8mhurh';
+                        year_source_layer = 'bayarea_1995-0os12w';
+                    };
+            
+                    if (document.getElementById('year').textContent == 1990) {
+                        year_id = 'bayarea_1990';
+                        year_url = 'mapbox://dantechen0825.9zi4joh6';
+                        year_source_layer = 'bayarea_1990-6dveq6';
+                    };
+            
+                    if (document.getElementById('year').textContent == 1985) {
+                        year_id = 'bayarea_1985';
+                        year_url = 'mapbox://dantechen0825.7ijit4ai';
+                        year_source_layer = 'bayarea_1985-akytlu';
+                    };
+            
+                    if (document.getElementById('year').textContent == 1980) {
+                        year_id = 'bayarea_1980';
+                        year_url = 'mapbox://dantechen0825.6ithltk6';
+                        year_source_layer = 'bayarea_1980-4zazpr';
+                    };
+            
+
+                    if (document.getElementById('year').textContent == 1975) {
+                        year_id = 'bayarea_1975';
+                        year_url = 'mapbox://dantechen0825.6ji291sm';
+                        year_source_layer = 'bayarea_1975-84b475';
+                    };
+
+            
+                    const year_ids = ['bayarea_1975', 'bayarea_1980', 'bayarea_1985', 'bayarea_1990',
+                      'bayarea_1995', 'bayarea_2000', 'bayarea_2005', 'bayarea_2010',
+                      'bayarea_2015', 'bayarea_2020', 'bayarea_2025', 'bayarea_2030'];
+            
+                    for (const i of year_ids) {
+                        if (map.getLayer(i)) {
+                            map.removeLayer(i);
+                        };
+            
+                        if (map.getSource(i)) {
+                            map.removeSource(i);
+                        };
+                    }
+            
+                    map.addLayer({
+                        id: year_id,
+                        type: 'raster',
+                        source: {
+                            type: 'raster',
+                            url: year_url, // Your Mapbox tileset Map ID
+                            tileSize: 128
+                        },
+                        'source-layer': year_source_layer, // name of tilesets
+                        'paint' : {
+                            'raster-opacity' : 0.9,
+                            'raster-contrast' :contrast_value,
+                        }
+                        },
+                      firstSymbolId   
+                    );
+                    
+                    
+                } else {
+                    document.getElementById("slider").stepUp(1);
+                    document.getElementById('year').textContent = document.getElementById("slider").value;   
+                    document.getElementById("year").style.left = ((document.getElementById("slider").value - 2030) * 1.66 + 95 + "%");
+                    
+                    map.setFilter('Subway_stations_test', ['<=', 'time', parseInt(document.getElementById("slider").value)]);
+                    map.setFilter('Subway_test', ['<=', 'time', parseInt(document.getElementById("slider").value)]);
+                    map.setFilter('IntercityRail_test', ['<=', 'time', parseInt(document.getElementById("slider").value)]);
+                    map.setFilter('IntercityRail_stations_test', ['<=', 'time', parseInt(document.getElementById("slider").value) ]);
+                    map.setFilter('HighspeedRail_test', ['<=', 'time', parseInt(document.getElementById("slider").value) ]);
+                    map.setFilter('HighspeedRail_stations_test', ['<=', 'time', parseInt(document.getElementById("slider").value) ]);
+                    
+                    
+                    
+                    if (document.getElementById('year').textContent == 2030) {
+                        year_id = 'bayarea_2030';
+                        year_url = 'mapbox://dantechen0825.5v3zjgzh';
+                        year_source_layer = 'bayarea_2030-1574aj';
+                    };
+                
+                    if (document.getElementById('year').textContent == 2025) {
+                        year_id = 'bayarea_2025';
+                        year_url = 'mapbox://dantechen0825.9x72ibpy';
+                        year_source_layer = 'bayarea_2025-8ctass';
+                    };
+            
+                    if (document.getElementById('year').textContent == 2020) {
+                        year_id = 'bayarea_2020';
+                        year_url = 'mapbox://dantechen0825.0wod7bj5';
+                        year_source_layer = 'bayarea_2000-1o1njt';
+                    }; 
+            
+                    if (document.getElementById('year').textContent == 2015) {
+                        year_id = 'bayarea_2015';
+                        year_url = 'mapbox://dantechen0825.00dezenj';
+                        year_source_layer = 'bayarea_2015-3jorfe';
+                    };
+            
+                    if (document.getElementById('year').textContent == 2010) {
+                        year_id = 'bayarea_2010';
+                        year_url = 'mapbox://dantechen0825.6k93jx9f';
+                        year_source_layer = 'bayarea_2010-1a5oqj';
+                    };
+            
+                    if (document.getElementById('year').textContent == 2005) {
+                        year_id = 'bayarea_2005';
+                        year_url = 'mapbox://dantechen0825.1yvg10kj';
+                        year_source_layer = 'bayarea_2005-11e3g3';
+                    };
+            
+            
+                    if (document.getElementById('year').textContent == 2000) {
+                        year_id = 'bayarea_2000';
+                        year_url = 'mapbox://dantechen0825.0wod7bj5';
+                        year_source_layer = 'bayarea_2000-1o1njt';
+                    };
+            
+            
+                    if (document.getElementById('year').textContent == 1995) {
+                        year_id = 'bayarea_1995';
+                        year_url = 'mapbox://dantechen0825.8e8mhurh';
+                        year_source_layer = 'bayarea_1995-0os12w';
+                    };
+            
+                    if (document.getElementById('year').textContent == 1990) {
+                        year_id = 'bayarea_1990';
+                        year_url = 'mapbox://dantechen0825.9zi4joh6';
+                        year_source_layer = 'bayarea_1990-6dveq6';
+                    };
+            
+                    if (document.getElementById('year').textContent == 1985) {
+                        year_id = 'bayarea_1985';
+                        year_url = 'mapbox://dantechen0825.7ijit4ai';
+                        year_source_layer = 'bayarea_1985-akytlu';
+                    };
+            
+                    if (document.getElementById('year').textContent == 1980) {
+                        year_id = 'bayarea_1980';
+                        year_url = 'mapbox://dantechen0825.6ithltk6';
+                        year_source_layer = 'bayarea_1980-4zazpr';
+                    };
+            
+
+                    if (document.getElementById('year').textContent == 1975) {
+                        year_id = 'bayarea_1975';
+                        year_url = 'mapbox://dantechen0825.6ji291sm';
+                        year_source_layer = 'bayarea_1975-84b475';
+                    };
+
+            
+                    const year_ids = ['bayarea_1975', 'bayarea_1980', 'bayarea_1985', 'bayarea_1990',
+                      'bayarea_1995', 'bayarea_2000', 'bayarea_2005', 'bayarea_2010',
+                      'bayarea_2015', 'bayarea_2020', 'bayarea_2025', 'bayarea_2030'];
+            
+                    for (const i of year_ids) {
+                        if (map.getLayer(i)) {
+                            map.removeLayer(i);
+                        };
+            
+                        if (map.getSource(i)) {
+                            map.removeSource(i);
+                        };
+                    }
+            
+            
+                    map.addLayer({
+                        id: year_id,
+                        type: 'raster',
+                        source: {
+                            type: 'raster',
+                            url: year_url, // Your Mapbox tileset Map ID
+                            tileSize: 128
+                        },
+                        'source-layer': year_source_layer, // name of tilesets
+                        'paint' : {
+                            'raster-opacity' : 0.9,
+                            'raster-contrast' :contrast_value,
+                        }
+                        },
+                      firstSymbolId   
+                    );
+                    
+                }
+            }, 2500);  // auto-play time interval
+        }
+    });
+                                                      
+                                                      
+        
+    });
+
+
+</script>
+
+</body>
+</html>
